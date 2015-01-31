@@ -1,0 +1,32 @@
+{
+    "name": "symfony-cmf/site-context-bundle",
+    "description": "Provides Site objects based on request data",
+    "homepage": "http://cmf.symfony.com",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Symfony CMF Community",
+            "homepage": "https://github.com/symfony-cmf/symfony-cmf/contributors"
+        }
+    ],
+    "minimum-stability": "dev",
+    "require": {
+        "symfony/framework-bundle": "~2.3"
+    },
+    "require-dev": {
+        "symfony-cmf/testing": "~1.1",
+        "symfony-cmf/routing-bundle": "~1.3"
+    },
+    "suggest": {
+    },
+    "autoload": {
+        "psr-4": {
+            "Symfony\\Cmf\\Bundle\\CmfContextBundle\\": ""
+        }
+    },
+    "extra": {
+        "branch-alias": {
+            "dev-master": "1.0-dev"
+        }
+    }
+}
