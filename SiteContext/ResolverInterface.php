@@ -12,6 +12,7 @@
 namespace Symfony\Cmf\Bundle\SiteContextBundle\SiteContext;
 
 use Symfony\Cmf\Bundle\SiteContextBundle\SiteContext\HostInterface;
+use Symfony\Component\HttpFoundation\Request;
 
 /**
  * Resolve the given request to an object implementing
@@ -19,7 +20,7 @@ use Symfony\Cmf\Bundle\SiteContextBundle\SiteContext\HostInterface;
  *
  * @author Daniel Leech <daniel@dantleech.com>
  */
-class ResolverInterface
+interface ResolverInterface
 {
     /**
      * @param Request $request

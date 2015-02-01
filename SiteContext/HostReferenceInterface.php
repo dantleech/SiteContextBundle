@@ -18,7 +18,7 @@ use Symfony\Cmf\Bundle\SiteContextBundle\SiteContext\HostInterface;
  * Represents 
  * @author Daniel Leech <daniel@dantleech.com>
  */
-class HostReferenceInterface extends HostInterface
+interface HostReferenceInterface extends HostInterface
 {
     /**
      * Return the referenced host

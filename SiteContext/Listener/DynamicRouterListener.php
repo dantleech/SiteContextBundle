@@ -13,8 +13,14 @@ namespace Symfony\Cmf\Bundle\SiteContextBundle\SiteContext\Listener;
 
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Cmf\Component\Routing\Event\RouterMatchEvent;
+use Symfony\Cmf\Bundle\SiteContextBundle\SiteContext\ResolverInterface;
+use Symfony\Cmf\Bundle\SiteContextBundle\SiteContext\SiteContextInterface;
 
 /**
+ * This listener listens to the pre dynamic match request event from
+ * the Symfony CMF RoutingBundle. This event is fired before the router
+ * tries to find a route.
+ *
  * @author Daniel Leech <daniel@dantleech.com>
  */
 class DynamicRouterListener
@@ -39,7 +45,7 @@ class DynamicRouterListener
         $request = $event->getRequest();
 
         if (null === $request) {
-            throw new \InvalidArgumentException(
+            throw new \RuntimeException(
                 'No request object present in the RouterMatchEvent. This probably means '.
                 'that the dynamic router was invoked with the deprecated "match" method'
             );

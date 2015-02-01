@@ -15,13 +15,14 @@
     },
     "require-dev": {
         "symfony-cmf/testing": "~1.1",
-        "symfony-cmf/routing-bundle": "~1.3"
+        "symfony-cmf/routing-bundle": "~1.3",
+        "phpspec/prophecy-phpunit": "~1.0"
     },
     "suggest": {
     },
     "autoload": {
         "psr-4": {
-            "Symfony\\Cmf\\Bundle\\CmfContextBundle\\": ""
+            "Symfony\\Cmf\\Bundle\\SiteContextBundle\\": ""
         }
     },
     "extra": {

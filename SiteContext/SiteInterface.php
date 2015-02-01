@@ -14,7 +14,7 @@ namespace Symfony\Cmf\Bundle\SiteContextBundle\SiteContext;
 /**
  * @author Daniel Leech <daniel@dantleech.com>
  */
-class SiteInterface
+interface SiteInterface
 {
     /**
      * Return the public name of this site

@@ -14,7 +14,7 @@ namespace Symfony\Cmf\Bundle\SiteContextBundle\SiteContext;
 /**
  * @author Daniel Leech <daniel@dantleech.com>
  */
-class SiteContextInterface
+interface SiteContextInterface
 {
     /**
      * Load the given Site into this site context

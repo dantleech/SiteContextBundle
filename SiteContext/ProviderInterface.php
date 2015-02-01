@@ -17,7 +17,7 @@ use Symfony\Cmf\Bundle\SiteContextBundle\SiteContext\HostInterface;
 /**
  * @author Daniel Leech <daniel@dantleech.com>
  */
-class ProviderInterface
+interface ProviderInterface
 {
     /**
      * Provide an object implementing HostInterface for

@@ -17,7 +17,7 @@ use Symfony\Component\HttpFoundation\Request;
  * Represents 
  * @author Daniel Leech <daniel@dantleech.com>
  */
-class HostInterface
+interface HostInterface
 {
     /**
      * Return the host name, e.g. www.example.com
