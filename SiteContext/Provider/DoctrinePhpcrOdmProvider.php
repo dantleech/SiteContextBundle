@@ -14,6 +14,9 @@ namespace Symfony\Cmf\Bundle\SiteContextBundle\SiteContext\Provider;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Cmf\Bundle\SiteContextBundle\SiteContext\ProviderInterface;
 use Doctrine\Bundle\PHPCRBundle\ManagerRegistry;
+use Symfony\Cmf\Bundle\SiteContextBundle\SiteContext\HostInterface;
+use Symfony\Cmf\Bundle\SiteContextBundle\SiteContext\HostReferenceInterface;
+use Symfony\Cmf\Bundle\SiteContextBundle\SiteContext\HostSiteInterface;
 
 /**
  * This PHPCR ODM provider expects hosts to be stored using their
@@ -71,6 +74,32 @@ class DoctrinePhpcrOdmProvider implements ProviderInterface
         $manager = $this->registry->getManager();
         $path = sprintf('%s/%s', $this->hostsPath, $hostname);
 
-        return $manager->find(null, $path);
+        $host = $manager->find(null, $path);
+
+        return $this->resolveHost($host);
+    }
+
+    /**
+     * Recursively resolve the host if it is a
+     * host reference document.
+     *
+     * @return HostSiteInterface
+     *
+     * @throws RuntimeException
+     */
+    private function resolveHost(HostInterface $host)
+    {
+        if ($host instanceof HostSiteInterface) {
+            return $host;
+        }
+
+        if (!$host instanceof HostReferenceInterface) {
+            throw new \RuntimeException(sprintf(
+                'Host should be either an instance of HostSiteInterface or HostReferenceInterface. Got "%s"',
+                is_object($host) ? get_class($host) : gettype($host)
+            ));
+        }
+
+        return $host->getHost();
     }
 }

@@ -20,7 +20,8 @@ class DoctrinePhpcrOdmProviderTest extends ProphecyTestCase
     {
         $this->managerRegistry = $this->prophesize('Doctrine\Bundle\PHPCRBundle\ManagerRegistry');
         $this->manager = $this->prophesize('Doctrine\ODM\PHPCR\DocumentManager');
-        $this->host = $this->prophesize('Symfony\Cmf\Bundle\SiteContextBundle\SiteContext\HostInterface');
+        $this->siteHost = $this->prophesize('Symfony\Cmf\Bundle\SiteContextBundle\SiteContext\HostSiteInterface');
+        $this->referenceHost = $this->prophesize('Symfony\Cmf\Bundle\SiteContextBundle\SiteContext\HostReferenceInterface');
     }
 
     public function provideProvide()
@@ -44,10 +45,23 @@ class DoctrinePhpcrOdmProviderTest extends ProphecyTestCase
 
         $provider = $this->createProvider($path);
         $this->managerRegistry->getManager()->willReturn($this->manager);
-        $this->manager->find(null, $path . '/' . $hostName)->willReturn($this->host->reveal());
+        $this->manager->find(null, $path . '/' . $hostName)->willReturn($this->siteHost->reveal());
 
         $host = $provider->provide($hostName);
-        $this->assertSame($this->host->reveal(), $host);
+        $this->assertSame($this->siteHost->reveal(), $host);
+    }
+
+    public function testProvideReferenced()
+    {
+        $path = '/path/to';
+        $hostName = 'foobar.dom';
+        $provider = $this->createProvider($path);
+        $this->managerRegistry->getManager()->willReturn($this->manager);
+        $this->manager->find(null, $path . '/' . $hostName)->willReturn($this->referenceHost->reveal());
+        $this->referenceHost->getHost()->willReturn($this->siteHost);
+
+        $host = $provider->provide($hostName);
+        $this->assertSame($this->siteHost->reveal(), $host);
     }
 
     private function createProvider($path)

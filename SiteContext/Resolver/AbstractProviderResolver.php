@@ -13,12 +13,13 @@ namespace Symfony\Cmf\Bundle\SiteContextBundle\SiteContext\Resolver;
 
 use Symfony\Cmf\Bundle\SiteContextBundle\SiteContext\ResolverInterface;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Cmf\Bundle\SiteContextBundle\SiteContext\ProviderInterface;
 
 abstract class AbstractProviderResolver implements ResolverInterface
 {
     private $provider;
 
-    public function __construct(HostProvider $provider, $defaultHostname)
+    public function __construct(ProviderInterface $provider)
     {
         $this->provider = $provider;
     }
@@ -32,7 +33,7 @@ abstract class AbstractProviderResolver implements ResolverInterface
             throw new Exception\HostNotFoundException(sprintf(
                 'Host resolver "%s" could not resolve host "%s"',
                 $refl->getShortName(),
-                $hostname,
+                $hostname
             ));
         }
 

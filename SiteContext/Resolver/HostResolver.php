@@ -21,6 +21,6 @@ class HostResolver extends AbstractProviderResolver
      */
     public function resolve(Request $request)
     {
-        return $this->getHost($request->getHost();
+        return $this->getHost($request->getHost());
     }
 }

@@ -13,6 +13,7 @@ namespace Symfony\Cmf\Bundle\SiteContextBundle\SiteContext\Resolver;
 
 use Symfony\Cmf\Bundle\SiteContextBundle\SiteContext\ResolverInterface;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Cmf\Bundle\SiteContextBundle\SiteContext\ProviderInterface;
 
 class DefaultResolver extends AbstractProviderResolver
 {
@@ -22,9 +23,9 @@ class DefaultResolver extends AbstractProviderResolver
      * @param HostProvider $provider
      * @param string $defaultHost
      */
-    public function __construct(HostProvider $provider, $defaultHost)
+    public function __construct(ProviderInterface $provider, $defaultHost)
     {
-        parent::__construct();
+        parent::__construct($provider);
         $this->defaultHost = $defaultHost;
     }
 
