@@ -3,9 +3,45 @@
     xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
     xsi:schemaLocation="http://symfony.com/schema/dic/services http://symfony.com/schema/dic/services/services-1.0.xsd">
 
-    <parameters>
-    </parameters>
-
     <services>
+        <!-- Listeners -->
+        <service id="cmf_site_context.listener.dynamic_router" class="Symfony\Cmf\Bundle\SiteContextBundle\SiteContext\Listener\DynamicRouterListener" public="false">
+            <argument type="service" id="cmf_site_context.resolver" />
+            <argument type="service" id="cmf_site_context.site_context" />
+            <tag name="kernel.event_listener" event="cmf_routing.pre_dynamic_match_request" method="handlePreDynamicMatchRequest" />
+        </service>
+
+        <!-- Resolvers -->
+        <service id="cmf_site_context.resolver.default" class="Symfony\Cmf\Bundle\SiteContextBundle\SiteContext\Resolver\DefaultResolver" public="false">
+            <argument type="service" id="cmf_site_context.provider" />
+            <argument>%cmf_site_context.resolver.default.default_host%</argument>
+            <tag name="cmf_site_context.resolver"  alias="default"/>
+        </service>
+
+        <service id="cmf_site_context.resolver.host" class="Symfony\Cmf\Bundle\SiteContextBundle\SiteContext\Resolver\HostResolver" public="false">
+            <argument type="service" id="cmf_site_context.provider" />
+            <tag name="cmf_site_context.resolver" alias="host"/>
+        </service>
+
+        <service id="cmf_site_context.resolver.query" class="Symfony\Cmf\Bundle\SiteContextBundle\SiteContext\Resolver\QueryResolver" public="false">
+            <argument type="service" id="cmf_site_context.provider" />
+            <argument>%cmf_site_context.resolver.query.query_parameter%</argument>
+            <tag name="cmf_site_context.resolver" alias="query"/>
+        </service>
+
+        <service id="cmf_site_context.resolver.chain" class="Symfony\Cmf\Bundle\SiteContextBundle\SiteContext\Resolver\ChainResolver" public="false">
+            <argument type="collection"/>
+        </service>
+
+        <!-- Providers -->
+        <service id="cmf_site_context.provider.doctrine_phpcr_odm" class="Symfony\Cmf\Bundle\SiteContextBundle\SiteContext\Provider\DoctrinePhpcrOdmProvider" public="false">
+            <argument type="service" id="doctrine_phpcr" />
+            <argument>%cmf_site_context.provider.doctrine_phpcr_odm.hosts_path%</argument>
+            <tag name="cmf_site_context.provider" alias="doctrine_phpcr_odm"/>
+        </service>
+
+        <service id="cmf_site_context.provider.dummy" class="Symfony\Cmf\Bundle\SiteContextBundle\SiteContext\Provider\DummyProvider" public="false">
+            <tag name="cmf_site_context.provider" alias="dummy"/>
+        </service>
     </services>
 </container>
